@@ -12,10 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerUser = void 0;
-const user_model_1 = __importDefault(require("../models/user.model"));
-const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_model_1.default.create(req.body);
-    res.status(201).json(user);
+exports.createCategory = void 0;
+const category_model_1 = __importDefault(require("../models/category.model"));
+const createCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const category = yield category_model_1.default.create(req.body);
+        res.status(201).json(category);
+    }
+    catch (error) {
+        res.status(400).json(error);
+    }
 });
-exports.registerUser = registerUser;
+exports.createCategory = createCategory;
