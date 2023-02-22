@@ -1,5 +1,6 @@
 import ProductModel from "../models/product.model";
 import { Request, Response } from "express"
+import { validateProduct } from "../validation/product.validation";
 
 const getProductById = async (req: Request, res: Response) => {
     try {
@@ -24,6 +25,12 @@ const getAllProducts = async (req: Request, res: Response) => {
 
 const createProduct = async (req: Request, res: Response) => {
     try {
+        const validate = await validateProduct.validateAsync(req.body)
+        const availableProduct = await ProductModel.findOne({ title: validate.title })
+        if(availableProduct) {
+            return res.status(409).json(`Product ${validate.title} is already in database`)
+        }
+
         const product = await ProductModel.create(req.body)
         res.status(201).json(product)
     } catch(error) {
@@ -31,4 +38,18 @@ const createProduct = async (req: Request, res: Response) => {
     }
 }
 
-export { getProductById, getAllProducts, createProduct }
+const updateProduct = async (req: Request, res: Response) => {
+    try {
+        await validateProduct.validateAsync(req.body)
+
+        const product = await ProductModel.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        if(!product) {
+            return res.status(404).json(`${req.params.id} not found`)
+        }
+        res.status(200).json(product)
+    } catch(error) {
+        res.status(400).json(error)
+    }
+}
+
+export { getProductById, getAllProducts, createProduct, updateProduct }

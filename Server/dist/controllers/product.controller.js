@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createProduct = exports.getAllProducts = exports.getProductById = void 0;
+exports.updateProduct = exports.createProduct = exports.getAllProducts = exports.getProductById = void 0;
 const product_model_1 = __importDefault(require("../models/product.model"));
+const product_validation_1 = require("../validation/product.validation");
 const getProductById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const product = yield product_model_1.default.findById(req.params.id);
@@ -39,6 +40,11 @@ const getAllProducts = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.getAllProducts = getAllProducts;
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const validate = yield product_validation_1.validateProduct.validateAsync(req.body);
+        const availableProduct = yield product_model_1.default.findOne({ title: validate.title });
+        if (availableProduct) {
+            return res.status(409).json(`Product ${validate.title} is already in database`);
+        }
         const product = yield product_model_1.default.create(req.body);
         res.status(201).json(product);
     }
@@ -47,3 +53,17 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.createProduct = createProduct;
+const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield product_validation_1.validateProduct.validateAsync(req.body);
+        const product = yield product_model_1.default.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!product) {
+            return res.status(404).json(`${req.params.id} not found`);
+        }
+        res.status(200).json(product);
+    }
+    catch (error) {
+        res.status(400).json(error);
+    }
+});
+exports.updateProduct = updateProduct;

@@ -6,9 +6,9 @@ POST http://localhost:3000/api/categories
 Content-Type: application/json
 
 {
-    "title": "Juices",
-    "image": "gfegwgewgw",
-    "description": "fewfew"
+    "title": "Healthy food",
+    "image": "#",
+    "description": "#"
 }
 ###
 PUT http://localhost:3000/api/categories/63f61a47283e3bd8d78420d3

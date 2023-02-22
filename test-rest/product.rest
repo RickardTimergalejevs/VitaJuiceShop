@@ -6,23 +6,42 @@ POST http://localhost:3000/api/products
 Content-Type: application/json
 
 {
-    "title": "Green",
-    "image": "hwerwqtwq",
+    "title": "Pomegranate juce",
+    "image": "#",
     "volume": 500,
     "ingredients": {
-        "ingr1": "Celery",
-        "ingr2": "Apple",
-        "ingr3": "Spinach",
-        "ingr4": "Spirulina",
-        "ingr5": "Ice"
+        "ingr1": "Pomegranate",
+        "ingr2": "Ice"
     },
     "nutritionalValue": {
-        "protein": 8,
-        "carbohydrates": 40,
-        "fat": 5
+        "protein": 10,
+        "carbohydrates": 30,
+        "fat": 8
     },
-    "shelfLife": 80,
+    "shelfLife": 60,
     "storageConditions": "In the fridge",
-    "price": 299,
-    "category": "63f5e1ea5fbd8a9e48d08851"
+    "price": 359,
+    "category": "63f6363b69e986c09f2d412f"
+}
+###
+PUT http://localhost:3000/api/products/63f63b106f201a114cb17f97
+Content-Type: application/json
+
+{
+    "title": "Test",
+    "image": "#",
+    "volume": 500,
+    "ingredients": {
+        "ingr1": "Pomegranate",
+        "ingr2": "Ice"
+    },
+    "nutritionalValue": {
+        "protein": 10,
+        "carbohydrates": 30,
+        "fat": 8
+    },
+    "shelfLife": 60,
+    "storageConditions": "In the fridge",
+    "price": 400,
+    "category": "63f6363b69e986c09f2d412f"
 }
