@@ -11,3 +11,4 @@ exports.categoryRouter = categoryRouter;
 categoryRouter.get("/:id", category_controller_1.getCategoryById);
 categoryRouter.get("/", category_controller_1.getCategories);
 categoryRouter.post("/", category_controller_1.createCategory);
+categoryRouter.put("/:id", category_controller_1.updateCategory);

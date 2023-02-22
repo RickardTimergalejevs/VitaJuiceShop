@@ -12,13 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createCategory = exports.getCategories = exports.getCategoryById = void 0;
+exports.updateCategory = exports.createCategory = exports.getCategories = exports.getCategoryById = void 0;
 const category_model_1 = __importDefault(require("../models/category.model"));
+const category_validation_1 = require("../validation/category.validation");
 const getCategoryById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const category = yield category_model_1.default.findById(req.params.id);
         if (!category) {
-            res.status(404).json(`${req.params.id} not found`);
+            return res.status(404).json(`${req.params.id} not found`);
         }
         res.status(200).json(category);
     }
@@ -39,6 +40,11 @@ const getCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.getCategories = getCategories;
 const createCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const validate = yield category_validation_1.validateCategory.validateAsync(req.body);
+        const availableCategory = yield category_model_1.default.findOne({ title: validate.title });
+        if (availableCategory) {
+            return res.status(409).json(`Category ${validate.title} is already in database`);
+        }
         const category = yield category_model_1.default.create(req.body);
         res.status(201).json(category);
     }
@@ -47,3 +53,17 @@ const createCategory = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.createCategory = createCategory;
+const updateCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield category_validation_1.validateCategory.validateAsync(req.body);
+        const category = yield category_model_1.default.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!category) {
+            return res.status(404).json(`${req.params.id} not found`);
+        }
+        res.status(200).json(category);
+    }
+    catch (error) {
+        res.status(400).json(error);
+    }
+});
+exports.updateCategory = updateCategory;
