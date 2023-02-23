@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateProduct = exports.createProduct = exports.getAllProducts = exports.getProductById = void 0;
+exports.updateProduct = exports.createProduct = exports.getProductByCategory = exports.getAllProducts = exports.getProductById = void 0;
 const product_model_1 = __importDefault(require("../models/product.model"));
 const product_validation_1 = require("../validation/product.validation");
 const getProductById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -38,6 +38,19 @@ const getAllProducts = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.getAllProducts = getAllProducts;
+const getProductByCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const products = yield product_model_1.default.find({ category: req.params.id });
+        if (!products) {
+            res.status(404).json(`${req.params.id} not found`);
+        }
+        res.status(200).json(products);
+    }
+    catch (error) {
+        res.status(400).json(error);
+    }
+});
+exports.getProductByCategory = getProductByCategory;
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const validate = yield product_validation_1.validateProduct.validateAsync(req.body);

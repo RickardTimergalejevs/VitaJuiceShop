@@ -1,6 +1,8 @@
-GET http://localhost:3000/api/products/63f5e60862ecb4f788b270eb
+GET http://localhost:3000/api/products/63f6370469e986c09f2d4146
 ###
 GET http://localhost:3000/api/products
+###
+GET http://localhost:3000/api/products/category/63f6363b69e986c09f2d412f
 ###
 POST http://localhost:3000/api/products
 Content-Type: application/json

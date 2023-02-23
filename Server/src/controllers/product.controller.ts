@@ -23,6 +23,19 @@ const getAllProducts = async (req: Request, res: Response) => {
     }
 }
 
+const getProductByCategory = async (req: Request, res: Response) => {
+    try {
+        const products = await ProductModel.find({ category: req.params.id })
+        if(!products) {
+            res.status(404).json(`${req.params.id} not found`)
+        }
+
+        res.status(200).json(products)
+    } catch(error) {
+        res.status(400).json(error)
+    }
+}
+
 const createProduct = async (req: Request, res: Response) => {
     try {
         const validate = await validateProduct.validateAsync(req.body)
@@ -52,4 +65,4 @@ const updateProduct = async (req: Request, res: Response) => {
     }
 }
 
-export { getProductById, getAllProducts, createProduct, updateProduct }
+export { getProductById, getAllProducts, getProductByCategory, createProduct, updateProduct }
