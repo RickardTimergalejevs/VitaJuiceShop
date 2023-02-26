@@ -61,7 +61,8 @@ h1 {
 }
 
 .green-container {
-    background-image: url(/Client/img/green.png);
+    /* background-image: url(/Client/img/green.png); */
+    background-color: green;
     height: 80vh;
 }
 
