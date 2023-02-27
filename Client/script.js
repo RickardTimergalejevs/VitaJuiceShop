@@ -1,4 +1,5 @@
 const categoryContainer = document.querySelector(".category-container")
+const productContainer = document.querySelector(".product-container")
 
 getCategories = async () => {
     categoryContainer.innerHTML = ""
@@ -11,34 +12,36 @@ getCategories = async () => {
         title.setAttribute("class", "categories")
         categoryContainer.append(title)
         title.innerHTML = category.title
-        title.addEventListener("click", () => getProductByCategory(category, category.id))
+        title.addEventListener("click", () => getProductByCategory(category, category._id))
     })
 }
 
 getProductByCategory = async (element, id) => {
-    const response = await fetch(`http://localhost:3000/api/products/${id}`, {method: "GET"})
+    const response = await fetch(`http://localhost:3000/api/products/category/${id}`)
     const products = await response.json()
 
-    const product = document.createElement("div")
-    product.setAttribute("class", "product")
+    products.forEach(products => {
+        const productDiv = document.createElement("div")
+        productDiv.setAttribute("class", "product")
 
-    const image = document.createElement("p")
-    image.innerHTML = products.image
+        const image = document.createElement("p")
+        image.innerHTML = products.image
 
-    const title = document.createElement("h2")
-    title.innerHTML = products.title
+        const title = document.createElement("h2")
+        title.innerHTML = products.title
 
-    const volume = document.createElement("p")
-    volume.innerHTML = products.volume
+        const volume = document.createElement("p")
+        volume.innerHTML = `${products.volume} ml`
 
-    const price = document.createElement("p")
-    price.innerHTML = products.price
+        const price = document.createElement("p")
+        price.innerHTML = `${products.price} kr`
 
-    const basketBtn = document.createElement("button")
-    basketBtn.innerHTML = "To basket"
+        const basketBtn = document.createElement("button")
+        basketBtn.innerHTML = "To basket"
 
-    product.append(image, title, volume, price, basketBtn)
-    categoryContainer.append(product)
+        productDiv.append(image, title, volume, price, basketBtn)
+        productContainer.append(productDiv)
+    })
 }
 
 getCategories()
