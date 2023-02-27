@@ -26,12 +26,12 @@ Content-Type: application/json
     "category": "63f6363b69e986c09f2d412f"
 }
 ###
-PUT http://localhost:3000/api/products/63f63b106f201a114cb17f97
+PUT http://localhost:3000/api/products/63f6376169e986c09f2d4148
 Content-Type: application/json
 
 {
-    "title": "Test",
-    "image": "#",
+    "title": "Pomegranate juice",
+    "image": "https://raw.githubusercontent.com/RickardTimergalejevs/VitaJuiceShop/4301e8d4386e7988c897d897549be48d88596f72/Client/img/logo.png",
     "volume": 500,
     "ingredients": {
         "ingr1": "Pomegranate",

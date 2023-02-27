@@ -46,6 +46,10 @@ header {
     text-decoration: none;
 }
 
+main {
+    padding-top: 157px;
+}
+
 h1 {
     text-align: center;
     text-transform: uppercase;

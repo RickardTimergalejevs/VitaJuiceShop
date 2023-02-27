@@ -24,8 +24,8 @@ getProductByCategory = async (element, id) => {
         const productDiv = document.createElement("div")
         productDiv.setAttribute("class", "product")
 
-        const image = document.createElement("p")
-        image.innerHTML = products.image
+        const image = document.createElement("img")
+        image.src = products.image
 
         const title = document.createElement("h2")
         title.innerHTML = products.title
