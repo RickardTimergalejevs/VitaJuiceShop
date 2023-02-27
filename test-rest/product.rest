@@ -31,7 +31,7 @@ Content-Type: application/json
 
 {
     "title": "Pomegranate juice",
-    "image": "https://raw.githubusercontent.com/RickardTimergalejevs/VitaJuiceShop/4301e8d4386e7988c897d897549be48d88596f72/Client/img/logo.png",
+    "image": "https://raw.githubusercontent.com/RickardTimergalejevs/VitaJuiceShop/main/Client/img/product-img/pomegranate%20juice.png",
     "volume": 500,
     "ingredients": {
         "ingr1": "Pomegranate",
@@ -44,6 +44,6 @@ Content-Type: application/json
     },
     "shelfLife": 60,
     "storageConditions": "In the fridge",
-    "price": 400,
+    "price": 499,
     "category": "63f6363b69e986c09f2d412f"
 }

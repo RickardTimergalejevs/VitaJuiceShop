@@ -1,5 +1,7 @@
 const categoryContainer = document.querySelector(".category-container")
 const productContainer = document.querySelector(".product-container")
+const loginBtn = document.querySelector(".login-btn")
+const loginPopup = document.querySelector(".login-popup")
 
 getCategories = async () => {
     categoryContainer.innerHTML = ""
@@ -37,6 +39,7 @@ getProductByCategory = async (element, id) => {
         price.innerHTML = `${products.price} kr`
 
         const basketBtn = document.createElement("button")
+        basketBtn.setAttribute("class", "basket-btn")
         basketBtn.innerHTML = "To basket"
 
         productDiv.append(image, title, volume, price, basketBtn)
