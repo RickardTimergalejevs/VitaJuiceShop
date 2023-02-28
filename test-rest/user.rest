@@ -1,7 +1,18 @@
+POST http://localhost:3000/api/users/register
+Content-Type: application/json
+
+{
+    "firstName": "Anthg",
+    "phoneNumber": 1233124513
+}
+###
 POST http://localhost:3000/api/users/login
 Content-Type: application/json
 
 {
-    "firstName": "Olle",
-    "phoneNumber": 1233124515
+    "firstName": "Oll",
+    "phoneNumber": 1233124515,
+    "phoneAuthorizationCode": 49990
 }
+###
+GET http://localhost:3000/api/users/myProfile
