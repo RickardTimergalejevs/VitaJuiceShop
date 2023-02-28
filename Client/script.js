@@ -1,7 +1,9 @@
 const categoryContainer = document.querySelector(".category-container")
 const productContainer = document.querySelector(".product-container")
+const firstNameInput = document.querySelector(".first-name-input")
+const phoneNumberInput = document.querySelector(".phone-number-input")
+const authCodeInput = document.querySelector(".auth-code-input")
 const loginBtn = document.querySelector(".login-btn")
-const loginPopup = document.querySelector(".login-popup")
 
 getCategories = async () => {
     categoryContainer.innerHTML = ""
@@ -48,3 +50,26 @@ getProductByCategory = async (element, id) => {
 }
 
 getCategories()
+
+login = async () => {
+    const response = await fetch("http://localhost:3000/api/users/login", {
+        method: "POST",
+        body: JSON.stringify(
+            {
+                "firstName": firstNameInput.value,
+                "phoneNumber": phoneNumberInput.value
+            }
+        ),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    const user1 = await response.json()
+    console.log(user1);
+}
+
+loginBtn.addEventListener("click", () => {
+    if(login()) {
+        authCodeInput.value = phoneAuthorizationCode = "code"
+    } 
+})
