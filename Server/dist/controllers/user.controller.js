@@ -65,13 +65,11 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.loginUser = loginUser;
 const getCurrentUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        /* const user = await UserModel.findById(id)
-
-        if(!user) {
-            return res.status(404).json("User does not exist")
+        const user = yield user_model_1.default.findById(req.body.id);
+        if (!user) {
+            return res.status(404).json("User does not exist");
         }
-
-        res.status(200).json(user) */
+        res.status(200).json(user);
     }
     catch (error) {
         res.status(500).json(error);

@@ -3,6 +3,7 @@ import { Request, Response } from "express"
 import { validateUser } from "../validation/user.validation";
 import jwt from "jsonwebtoken"
 
+
 const registerUser = async (req: Request, res: Response) => {
     try {
         const { firstName, phoneNumber } = req.body
@@ -65,13 +66,13 @@ const loginUser = async (req: Request, res: Response) => {
 
 const getCurrentUser = async (req: Request, res: Response) => {
     try {
-        /* const user = await UserModel.findById(id)
+        const user = await UserModel.findById(req.body.id)
 
         if(!user) {
             return res.status(404).json("User does not exist")
         }
 
-        res.status(200).json(user) */
+        res.status(200).json(user)
     } catch(error) {
         res.status(500).json(error)
     }

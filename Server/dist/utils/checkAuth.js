@@ -1,22 +1,56 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getDocumentProperty = exports.auth = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-exports.default = (req, res, next) => {
-    const token = req.headers.authorization;
-    if (token) {
-        try {
+const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    try {
+        const token = (_a = req.header("authorization")) === null || _a === void 0 ? void 0 : _a.replace("Bearer ", "");
+        if (token) {
             const decoded = jsonwebtoken_1.default.verify(token, "secret123");
-            /* req.userId = decoded._id */
-            next();
+            req.body.id = decoded;
+            console.log(getDocumentProperty(decoded, "_id"));
         }
-        catch (error) {
-            return res.status(403).json("You are not authenticated");
+        else {
+            return res.status(401).json("You are not authenticated");
         }
+        next();
+        /* const token = req.header("authorization")?.replace("Bearer ", "")
+
+        if(!token) {
+            throw new Error()
+        }
+
+        const decoded = jwt.verify(token, "secret123");
+        (req as CustomRequest).token = decoded;
+
+        getDocumentProperty(decoded, "_id")
+ */
     }
-    else {
-        return res.status(403).json("You are not authenticated");
+    catch (error) {
+        res.status(401).json("You are not authenticated");
     }
-};
+});
+exports.auth = auth;
+function getDocumentProperty(object, idKey) {
+    let result;
+    if (object) {
+        const myId = idKey;
+        result = object[myId];
+    }
+    return '' + result;
+}
+exports.getDocumentProperty = getDocumentProperty;
+/* https://www.youtube.com/watch?v=GQ_pTmcXNrQ */
