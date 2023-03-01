@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDocumentProperty = exports.auth = void 0;
+exports.auth = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
@@ -21,7 +21,6 @@ const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
         if (token) {
             const decoded = jsonwebtoken_1.default.verify(token, "secret123");
             req.body.id = decoded;
-            console.log(getDocumentProperty(decoded, "_id"));
         }
         else {
             return res.status(401).json("You are not authenticated");
@@ -44,13 +43,15 @@ const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.auth = auth;
-function getDocumentProperty(object, idKey) {
+/* export function getDocumentProperty (object: any, idKey: string) {
     let result;
+  
     if (object) {
-        const myId = idKey;
-        result = object[myId];
+      type MyObjectKey = keyof typeof object;
+      const myId = idKey as MyObjectKey;
+      result = object[myId];
     }
+  
     return '' + result;
-}
-exports.getDocumentProperty = getDocumentProperty;
+  } */
 /* https://www.youtube.com/watch?v=GQ_pTmcXNrQ */

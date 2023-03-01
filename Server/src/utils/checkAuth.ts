@@ -1,4 +1,4 @@
-import jwt, { JwtPayload } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 import { Request, Response, NextFunction } from "express"
 
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
@@ -9,7 +9,6 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
             const decoded = jwt.verify(token, "secret123");
 
             req.body.id = decoded
-            console.log(getDocumentProperty(decoded, "_id"));
             
         } else {
             return res.status(401).json("You are not authenticated")
@@ -32,7 +31,7 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
-export function getDocumentProperty (object: any, idKey: string) {
+/* export function getDocumentProperty (object: any, idKey: string) {
     let result;
   
     if (object) {
@@ -42,7 +41,7 @@ export function getDocumentProperty (object: any, idKey: string) {
     }
   
     return '' + result;
-  }
+  } */
 
 /* https://www.youtube.com/watch?v=GQ_pTmcXNrQ */
 
