@@ -179,7 +179,7 @@ footer {
 
 .legal {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     height: 262px;
     border-top: 8px dashed #2B2A29;
